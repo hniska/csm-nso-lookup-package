@@ -96,9 +96,9 @@ To create the workflow run the create-service-lookup-enricher.sh locally on your
 
 ## Usage
 
-Have the NSO service template populate the csm-lookup table and then wait for the update-lookup.py script to create the lookup file and the workflow to reload it.
+Have the NSO service template populate the csm-lookup table and then wait for the update-lookup.py script to create the lookup file and the enrichment workflow to reload it.
 
-Add something like this to you service template
+Add something like this to the service template
 
 ```xml
 <config xmlns="http://tail-f.com/ns/config/1.0">

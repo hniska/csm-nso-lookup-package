@@ -1,0 +1,63 @@
+module csm-lookup {
+
+  namespace "http://hniska.cisco.com/csm-lookup";
+  prefix csm-lookup;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-common {
+    prefix tailf;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  description
+    "Situation Manager lookup table";
+
+  revision 2020-01-08 {
+    description
+      "Initial revision. hniska@cisco.com";
+  }
+
+  container csm-lookup {
+
+    tailf:action generate {
+        tailf:actionpoint lookup-action;
+        input {
+          leaf lookup {
+            type empty;
+          }
+        }
+        output {
+          leaf result {
+            type string;
+          }
+        }
+    }
+
+
+    list device-to-service {
+      description "device to service lookup table";
+      key "device";
+      leaf device {
+            type string;
+      }
+          leaf-list services {
+              type string;
+          }
+    }
+    leaf last-modified {
+        type string;
+        config false;
+        tailf:cdb-oper {
+          tailf:persistent true;
+        }
+        tailf:info "last update time";
+    }
+
+
+  }
+
+}

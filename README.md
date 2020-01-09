@@ -89,14 +89,16 @@ To run check and update the lookup file every 5 seconds run it as
 $> update-lookup.py --timer 5
 ```
 
-To create the workflow run the create-service-lookup-enricher.sh locally on your Situation Manager installtion. That will create an "Enrichment Workflow" called "NSO Service Lookup".
+To create the workflow run the create-service-lookup-enricher.sh locally on your Situation Manager installtion. The script will create an "Enrichment Workflow" called "NSO Service Lookup".
 
 ![workflow1](/workflow1.jpg)
 ![workflow2](/workflow2.jpg)
 
 ## Usage
 
-Have the NSO service template populate the csm-lookup table, could be something like
+Have the NSO service template populate the csm-lookup table and then wait for the update-lookup.py script to create the lookup file and the workflow to reload it.
+
+Add something like this to you service template
 
 ```xml
 <config xmlns="http://tail-f.com/ns/config/1.0">

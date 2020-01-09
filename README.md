@@ -1,6 +1,6 @@
 # Situation Manager - NSO Service Lookup Package
 
-Example code on how to create a device->NSO services lookup table in Cisco Situation Manager (Moogsoft AIOps). Well in reality you can use it for any lookups but in this example it will populate the Situation Manager event field custom_info.eventDetails.nso with a device to service mapping.
+Example code on how to create a "device to NSO services" lookup table in Cisco Situation Manager (Moogsoft AIOps). Well in reality you can use it for any lookups but in this example it will populate the Situation Manager event field custom_info.eventDetails.nso with a device to service mapping.
 
 This package contains three pieces, one NSO package that contains a simple YANG list and a subscriber that updates the last-modified time when the list is updated.
 

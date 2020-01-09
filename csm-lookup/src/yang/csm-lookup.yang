@@ -9,21 +9,18 @@ module csm-lookup {
   import tailf-common {
     prefix tailf;
   }
-  import tailf-ncs {
-    prefix ncs;
-  }
 
-  description
-    "Situation Manager lookup table";
+  description "Situation Manager lookup table";
 
   revision 2020-01-08 {
-    description
-      "Initial revision. hniska@cisco.com";
+    description "Initial revision. hniska@cisco.com";
   }
 
   container csm-lookup {
 
-    tailf:action generate {
+    // Future feature, have an action that creates the lookup file and
+    // uploads it to Situation Manager
+    tailf:action generate-lookup {
         tailf:actionpoint lookup-action;
         input {
           leaf lookup {
@@ -37,17 +34,17 @@ module csm-lookup {
         }
     }
 
-
     list device-to-service {
       description "device to service lookup table";
       key "device";
       leaf device {
             type string;
       }
-          leaf-list services {
-              type string;
-          }
+      leaf-list services {
+          type string;
+      }
     }
+
     leaf last-modified {
         type string;
         config false;
@@ -56,7 +53,6 @@ module csm-lookup {
         }
         tailf:info "last update time";
     }
-
 
   }
 

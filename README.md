@@ -25,7 +25,7 @@ This package contains three pieces, one NSO package that contains a simple YANG 
     }
 ```
 
-On the Situation Manager side you have a script (update-lookup.py) that connects to NSO over RESTConf and downloads the device-to-service list (if last-modified has changed) and stores that in a lookup-file (default $MOOGSOFT/config/lookups/device-to-service.lookup). This script can then be run periodically from crontab for example.
+On the Situation Manager side you have a script (update-lookup.py) that connects to NSO over RESTConf and downloads the device-to-service list (if last-modified has changed) and stores that in a lookup-file (default $MOOGSOFT/config/lookups/device-to-service.lookup). This script can then be run periodically from crontab.
 
 The update-lookup.py script can also run on an internal schedule which is nice when you are doing demoes and for POC as the smallest repeat time for crontab is 1 minute.
 
@@ -48,7 +48,7 @@ The lookup file format
 }
 ```
 
-There is also an enrichment workflow that reads the file that update-lookup.py creates. Default the lookup file is re-read every 30 seconds. The workflow checks if the device in the alert can be found in the lookup table it populates the custom_info.eventDetails.nso field with the list of services.
+There is also an enrichment workflow that reads the lookup file that update-lookup.py creates. Default the lookup file is re-read every 30 seconds. The workflow checks if the device in the alert can be found in the lookup table it populates the custom_info.eventDetails.nso field with the list of services.
 
 ## Installation
 
@@ -57,8 +57,8 @@ There is also an enrichment workflow that reads the file that update-lookup.py c
 Unpack the csm-lookup.tar.gz archive in the NSO packages folder. Then compile it
 
 ```
-cd packages/csm-lookup/src
-make
+$> cd packages/csm-lookup/src
+$> make
 ```
 
 And reload NSO packages
@@ -94,3 +94,17 @@ To create the workflow run the create-service-lookup-enricher.sh locally on your
 ![workflow1](/workflow1.jpg)
 ![workflow2](/workflow2.jpg)
 
+## Usage
+
+Have the NSO service template populate the csm-lookup table, could be something like
+
+```xml
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <csm-lookup xmlns="http://example.com/csm-lookup">
+    <device-to-service>
+      <device>{/endpoint/device}</device>
+      <services>{/name}</services>
+    </device-to-service>
+  </csm-lookup>
+</config>
+```

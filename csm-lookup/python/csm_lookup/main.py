@@ -1,14 +1,11 @@
 # -*- mode: python; python-indent: 4 -*-
 import ncs
-from ncs.application import Service
 from ncs.dp import Action
 try:
     from ncs.experimental import Subscriber
 except ImportError:
     from ncs.cdb import Subscriber
-import json
-import csv
-from  time import strftime
+from time import strftime
 
 
 class GenerateLoopupFile(Action):
@@ -16,8 +13,8 @@ class GenerateLoopupFile(Action):
     def cb_action(self, uinfo, name, kp, input, output, trans):
         self.log.info('action name: ', name)
         result = ''
-
         output.result = result
+
 
 class UpdateSubscriber(Subscriber):
     def init(self):
@@ -42,10 +39,10 @@ class UpdateSubscriber(Subscriber):
             csm_lookup.last_modified = strftime("%Y-%m-%d %H:%M:%S")
             trans.apply()
 
-
     # determine if post_iterate() should run
     def should_post_iterate(self, state):
         return state != []
+
 
 # ---------------------------------------------
 # COMPONENT THREAD THAT WILL BE STARTED BY NCS.
@@ -55,9 +52,7 @@ class Main(ncs.application.Application):
         # The application class sets up logging for us. It is accessible
         # through 'self.log' and is a ncs.log.Log instance.
         self.log.info('Main RUNNING')
-
         self.register_action('lookup-action', GenerateLoopupFile)
-
         self.sub = UpdateSubscriber(app=self)
         self.sub.start()
 

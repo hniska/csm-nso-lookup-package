@@ -25,7 +25,7 @@ This package contains three pieces, one NSO package that contains a simple YANG 
     }
 ```
 
-On the Situation Manager side you have a script (update-lookup.py) that connects to NSO over RESTConf and downloads the device-to-service list (if last-modified has changed) and stores that in a lookup-file (default $MOOGSOFT/config/lookups/device-to-service.lookup). This script can then be run periodically from crontab.
+On the Situation Manager side you have a script (update-lookup.py) that connects to NSO over RESTConf and downloads the device-to-service list (if last-modified has changed) and stores that in a lookup-file (default $MOOGSOFT/config/lookups/device-to-service.lookup). The script can then be run periodically from crontab. Feel free to add more leafs, lists or containers to the device-to-service list, update-lookup.py should be able to handle all types.
 
 The update-lookup.py script can also run on an internal schedule which is nice when you are doing demoes and for POC as the smallest repeat time for crontab is 1 minute.
 

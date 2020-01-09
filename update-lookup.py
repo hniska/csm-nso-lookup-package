@@ -1,18 +1,18 @@
-#!/bin/python
+#!/usr/bin/env python
 
 import json
 import requests
 import time
 import argparse
 
-auth = ("admin", "admin")
-nso = 'http://127.0.0.1:8080'
-headers = {'Content-Type': 'application/vnd.yang.collection+json',
+AUTH = ("admin", "admin")
+NSO = 'http://127.0.0.1:8080'
+HEADERS = {'Content-Type': 'application/vnd.yang.collection+json',
            'Accept': 'application/vnd.yang.collection+json'}
 
 
 def is_updated():
-    last_modified_url = nso + '/restconf/data/csm-lookup:csm-lookup/last-modified'
+    last_modified_url = NSO + '/restconf/data/csm-lookup:csm-lookup/last-modified'
     previously_modified = ''
     # modified_file = '/tmp/csm-lookup-last-modified.txt'
     modified_file = 'csm-lookup-last-modified.txt'
@@ -24,7 +24,7 @@ def is_updated():
         print('No last modified time file found')
         pass
 
-    r = requests.get(last_modified_url, auth=auth, headers=headers).content
+    r = requests.get(last_modified_url, auth=AUTH, headers=HEADERS).content
     r_json = json.loads(r)
     last_modified = r_json['csm-lookup:last-modified']
     if previously_modified != last_modified:
@@ -40,10 +40,10 @@ def generate_lookup():
     # lookup_file = '/usr/share/moogsoft/config/lookups/device-to-service.lookup'
 
     lookup_file = 'device-to-service.lookup'
-    url = nso + '/restconf/data/csm-lookup:csm-lookup/device-to-service'
+    url = NSO + '/restconf/data/csm-lookup:csm-lookup/device-to-service'
 
     if is_updated():
-        r = requests.get(url, auth=auth, headers=headers).content
+        r = requests.get(url, auth=AUTH, headers=HEADERS).content
         r_json = json.loads(r)
         lookup = {}
         with open(lookup_file, 'w') as jsonfile:

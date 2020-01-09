@@ -54,7 +54,7 @@ There is also an enrichment workflow that reads the lookup file that update-look
 
 ### NSO
 
-Unpack the csm-lookup.tar.gz archive in the NSO packages folder. Then compile it
+Copy the csm-lookup (it contains the NSO lookup package) folder to the NSO packages folder. Then compile it
 
 ```
 $> cd packages/csm-lookup/src

@@ -2,13 +2,13 @@
 import ncs
 from ncs.dp import Action
 try:
-    from ncs.experimental import Subscriber
-except ImportError:
     from ncs.cdb import Subscriber
+except ImportError:
+    from ncs.experimental import Subscriber
 from time import strftime
 
 
-class GenerateLoopupFile(Action):
+class GenerateLookupFile(Action):
     @Action.action
     def cb_action(self, uinfo, name, kp, input, output, trans):
         self.log.info('action name: ', name)
@@ -52,7 +52,7 @@ class Main(ncs.application.Application):
         # The application class sets up logging for us. It is accessible
         # through 'self.log' and is a ncs.log.Log instance.
         self.log.info('Main RUNNING')
-        self.register_action('lookup-action', GenerateLoopupFile)
+        self.register_action('lookup-action', GenerateLookupFile)
         self.sub = UpdateSubscriber(app=self)
         self.sub.start()
 

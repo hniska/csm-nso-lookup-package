@@ -22,7 +22,6 @@ def is_updated():
             previously_modified = timefile.readline()
     except FileNotFoundError:
         print('No last modified time file found')
-        pass
 
     r = requests.get(last_modified_url, auth=AUTH, headers=HEADERS).content
     r_json = json.loads(r)
@@ -36,8 +35,8 @@ def is_updated():
 
 
 def generate_lookup():
-    # lookup file, default is $MOOGSOFT/config/lookups
-    # lookup_file = '/usr/share/moogsoft/config/lookups/device-to-service.lookup'
+    # Remember to change lookup_file path, Situation Manager default is $MOOGSOFT/config/lookups
+    # i.e lookup_file = '/usr/share/moogsoft/config/lookups/device-to-service.lookup'
 
     lookup_file = 'device-to-service.lookup'
     url = NSO + '/restconf/data/csm-lookup:csm-lookup/device-to-service'
@@ -52,7 +51,6 @@ def generate_lookup():
                 for key in entry.keys():
                     if key != 'device':
                         lookup_entry[key] = entry[key]
-                        # lookup.setdefault(entry['device'], []).append({key: entry[key]})
                 lookup[entry['device']] = lookup_entry
             json.dump(lookup, jsonfile, indent=4, sort_keys=True)
 
